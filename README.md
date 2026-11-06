@@ -370,4 +370,3 @@ docker compose logs -f reverb
 - **Before going to production:** set `APP_ENV=production`, use your own Reverb keys, restrict `REVERB_ALLOWED_ORIGINS`, put a password on Redis, serve everything over HTTPS (`REVERB_PUBLIC_SCHEME=https`), and review `composer audit`.
 - **Never commit the `.env` files:** they hold the database password, the Reverb secret and SMTP credentials.
 - **Used opus 5.5.
-
