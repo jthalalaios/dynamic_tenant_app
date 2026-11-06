@@ -369,4 +369,4 @@ docker compose logs -f reverb
 - **Guzzle stays on 7.x.** Laravel Reverb 1.x requires `guzzlehttp/psr7 ^2`; move back to Guzzle 8 once a Reverb release supports psr7 3.
 - **Before going to production:** set `APP_ENV=production`, use your own Reverb keys, restrict `REVERB_ALLOWED_ORIGINS`, put a password on Redis, serve everything over HTTPS (`REVERB_PUBLIC_SCHEME=https`), and review `composer audit`.
 - **Never commit the `.env` files:** they hold the database password, the Reverb secret and SMTP credentials.
-- **Used opus 5.5.
+- Used opus 5.5.
