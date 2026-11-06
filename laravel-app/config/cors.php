@@ -1,0 +1,42 @@
+<?php
+
+return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Cross-Origin Resource Sharing (CORS) Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Here you may configure your settings for cross-origin resource sharing
+    | or "CORS". This determines what cross-origin operations may execute
+    | in web browsers. You are free to adjust these settings as needed.
+    |
+    | To learn more: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+    |
+    */
+
+    'paths' => ['api/*'],
+
+    'allowed_methods' => ['*'],
+
+    // Comma separated list; defaults to the multi SPA plus any standalone theme frontends
+    'allowed_origins' => array_values(array_filter(array_map(
+        fn (string $url) => rtrim(trim($url), '/'),
+        explode(',', (string) env('CORS_ALLOWED_ORIGINS', implode(',', [
+            env('FRONTEND_URL', 'http://localhost:5173'),
+            env('FRONTEND_URL_DOCTOR', ''),
+            env('FRONTEND_URL_MARKETPLACE', ''),
+        ]))),
+    ))),
+
+    'allowed_origins_patterns' => [],
+
+    'allowed_headers' => ['*'],
+
+    'exposed_headers' => ['Content-Language', 'Retry-After', 'X-RateLimit-Limit', 'X-RateLimit-Remaining'],
+
+    'max_age' => 3600,
+
+    'supports_credentials' => false,
+
+];

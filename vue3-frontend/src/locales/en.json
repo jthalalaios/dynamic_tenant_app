@@ -1,0 +1,556 @@
+{
+  "hello": "Hello",
+  "api": "API",
+  "common": {
+    "home": "Home",
+    "settings": "Settings",
+    "profile": "Profile",
+    "logout": "Logout",
+    "signUp": "Sign up",
+    "signIn": "Sign In",
+    "theme": "Theme",
+    "language": "Language",
+    "accountMenu": "Account menu",
+    "clinic": "Clinic",
+    "market": "Market",
+    "marketplace": "Marketplace",
+    "doctor": "Doctor",
+    "allRightsReserved": "All rights reserved.",
+    "error": "Error",
+    "success": "Success",
+    "appName": "Workspace",
+    "menu": "Menu",
+    "timezone": "Timezone",
+    "search": "Search",
+    "info": "Info",
+    "status": "Status",
+    "actions": "Actions",
+    "edit": "Edit",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "save": "Save",
+    "saved": "Changes saved.",
+    "deleted": "Deleted.",
+    "notes": "Notes",
+    "noResults": "Nothing to show yet.",
+    "active": "Active",
+    "inactive": "Inactive",
+    "confirmDeleteTitle": "Please confirm"
+  },
+  "cards": {
+    "details": "Details",
+    "checkIn": "Check-in",
+    "checkedIn": "Checked in",
+    "waiting": "Waiting",
+    "addToCart": "Add to cart",
+    "addedToCart": "{name} was added to your cart.",
+    "inStock": "In stock",
+    "lowStock": "Only {count} left",
+    "soldOut": "Sold out",
+    "rating": "Rated {rating} out of 5"
+  },
+  "doctor": {
+    "reasons": {
+      "consultation": "Consultation",
+      "followUp": "Follow-up",
+      "newPatient": "New patient",
+      "exam": "Exam"
+    },
+    "dashboard": {
+      "eyebrow": "Clinic dashboard",
+      "title": "Today's visitors overview",
+      "subtitle": "Track who is waiting, check patients in, and keep the day flowing smoothly.",
+      "newVisit": "New visit",
+      "queue": "Visitor queue",
+      "queueSubtitle": "Sorted by appointment time",
+      "checkedInToast": "{name} is checked in.",
+      "stats": {
+        "total": "Scheduled",
+        "totalCaption": "Visits booked today",
+        "waiting": "Waiting",
+        "waitingCaption": "Not yet checked in",
+        "checkedIn": "Checked in",
+        "checkedInCaption": "Ready for the doctor",
+        "staffOnline": "Staff online",
+        "staffOnlineCaption": "Ready to check patients in"
+      },
+      "emptyQueue": "No visits left for today."
+    },
+    "appointments": {
+      "title": "Appointments",
+      "subtitle": "Book visits, check patients in and track their progress.",
+      "new": "New appointment",
+      "edit": "Edit appointment",
+      "anyDay": "Any day",
+      "anyStatus": "Any status",
+      "when": "Date & time",
+      "reason": "Reason",
+      "duration": "Duration",
+      "checkedInBy": "Checked in by",
+      "confirmDelete": "Delete the appointment for {name}?",
+      "to": {
+        "inProgress": "Start",
+        "completed": "Complete",
+        "cancelled": "Cancel visit",
+        "noShow": "No-show"
+      }
+    },
+    "patients": {
+      "title": "Patients",
+      "subtitle": "Every patient record of your clinic.",
+      "new": "New patient",
+      "edit": "Edit patient",
+      "search": "Search name, email or phone",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "phone": "Phone",
+      "dateOfBirth": "Date of birth",
+      "gender": "Gender",
+      "genders": {
+        "female": "Female",
+        "male": "Male",
+        "other": "Other"
+      },
+      "confirmDelete": "Delete {name}? Their appointments are kept."
+    },
+    "reports": {
+      "title": "Clinic reports",
+      "subtitle": "Appointments over the last {days} days.",
+      "total": "Appointments",
+      "totalCaption": "Last {days} days",
+      "byStatus": "By status",
+      "byReason": "By reason",
+      "count": "Count",
+      "share": "Share"
+    }
+  },
+  "marketplace": {
+    "categories": {
+      "audio": "Audio",
+      "wearables": "Wearables",
+      "home": "Home",
+      "accessories": "Accessories"
+    },
+    "dashboard": {
+      "eyebrow": "Store dashboard",
+      "title": "Catalog & sales overview",
+      "subtitle": "Monitor inventory, spot low stock early, and keep your best sellers moving.",
+      "newProduct": "New product",
+      "catalog": "Product catalog",
+      "catalogSubtitle": "Live stock levels",
+      "stats": {
+        "products": "Products",
+        "productsCaption": "{count} available to buy",
+        "units": "Units in stock",
+        "unitsCaption": "Across all products",
+        "cart": "In cart",
+        "cartCaption": "Items added this session",
+        "lowStockCaption": "{count} products running low",
+        "ordersToday": "Orders today",
+        "pendingCaption": "{count} awaiting payment",
+        "revenue": "Revenue",
+        "revenueCaption": "Paid, shipped and delivered"
+      },
+      "lowStock": "Low stock",
+      "allStocked": "Everything is well stocked.",
+      "recentOrders": "Recent orders"
+    },
+    "products": {
+      "title": "Products",
+      "subtitle": "Your catalogue, prices and stock.",
+      "edit": "Edit product",
+      "search": "Search name or SKU",
+      "name": "Name",
+      "category": "Category",
+      "price": "Price",
+      "currency": "Currency",
+      "stock": "Stock",
+      "description": "Description",
+      "confirmDelete": "Delete {name}?"
+    },
+    "orders": {
+      "title": "Orders",
+      "subtitle": "Place orders and move them through fulfilment.",
+      "new": "New order",
+      "search": "Search number or customer",
+      "number": "Order",
+      "placedAt": "Placed",
+      "customer": "Customer",
+      "items": "Items",
+      "total": "Total",
+      "pickProduct": "Choose a product",
+      "inStock": "{count} in stock",
+      "addLine": "Add product",
+      "place": "Place order",
+      "placed": "Order {number} placed.",
+      "to": {
+        "paid": "Mark paid",
+        "shipped": "Ship",
+        "delivered": "Delivered",
+        "cancelled": "Cancel"
+      },
+      "confirmCancel": "Cancel order {number}? This cannot be undone."
+    },
+    "insights": {
+      "title": "Marketing insights",
+      "subtitle": "What sells best across your catalogue.",
+      "topProducts": "Best sellers",
+      "unitsSold": "Units sold",
+      "revenue": "Revenue"
+    }
+  },
+  "nav": {
+    "home": "Home",
+    "appointments": "Appointments",
+    "patients": "Patients",
+    "reports": "Reports",
+    "products": "Products",
+    "orders": "Orders",
+    "marketing": "Marketing",
+    "dashboard": "Dashboard",
+    "administration": "Administration",
+    "users": "Team",
+    "roles": "Roles & permissions",
+    "chat": "Chat"
+  },
+  "auth": {
+    "welcomeBack": "Welcome back",
+    "signInTitle": "Sign In",
+    "signInSubtitle": "Access your dashboard and manage your workspace securely.",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot password?",
+    "createAccount": "Create an account",
+    "signUpTitle": "Sign Up",
+    "signUpSubtitle": "Start your journey with a polished, secure workspace.",
+    "name": "Name",
+    "fullName": "Your full name",
+    "choosePassword": "Choose a password",
+    "newHere": "New here?",
+    "alreadyHaveAccount": "Already have an account?",
+    "signInLink": "Sign in",
+    "resetAccess": "Reset access",
+    "forgotPasswordTitle": "Forgot Password",
+    "forgotPasswordSubtitle": "Enter your email and we’ll help you recover your account.",
+    "sendResetLink": "Send reset link",
+    "backToSignIn": "Back to sign in",
+    "passwordPlaceholder": "Enter your password",
+    "emailPlaceholder": "you{'@'}example.com",
+    "loginFailed": "Login failed",
+    "registrationFailed": "Registration failed",
+    "requestFailed": "Request failed",
+    "genericResetSuccess": "If that email exists, a reset link has been sent.",
+    "workspaceType": "Join",
+    "clinicName": "Clinic name",
+    "shopName": "Shop name",
+    "resetPasswordTitle": "Choose a new password",
+    "resetPasswordSubtitle": "Pick a strong password you don't use anywhere else.",
+    "resetLinkInvalid": "This reset link is invalid or incomplete. Request a new one.",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm password",
+    "resetPasswordAction": "Reset password",
+    "oneMoreStep": "One more step",
+    "verifyEmailTitle": "Verify your email",
+    "verifyEmailSubtitle": "Confirm your address to unlock your workspace. The link in the email is valid for 24 hours.",
+    "verificationSentTo": "We sent a verification link to {email}.",
+    "iVerified": "I've verified my email",
+    "stillUnverified": "Your email is not verified yet. Open the link we sent you, then try again.",
+    "resendVerification": "Resend verification email",
+    "resendIn": "Resend available in {seconds}s",
+    "wrongAccount": "Wrong account?",
+    "verifyingEmailTitle": "Verifying your email",
+    "verifyingEmailBody": "Hang on while we confirm your address…",
+    "emailVerifiedTitle": "Email verified",
+    "emailVerifiedBody": "Thanks! Your address is confirmed and your workspace is ready.",
+    "continueToApp": "Continue to your workspace",
+    "verificationFailedTitle": "Link not valid",
+    "verificationFailedBody": "We couldn't verify your email with this link.",
+    "verificationLinkIncomplete": "This verification link is invalid or incomplete.",
+    "requestNewLink": "Request a new link",
+    "joinWorkspace": "You will join {workspace} as a member. An administrator can give you more access later."
+  },
+  "footer": {
+    "copyright": "© {year} {brand} — {rightsReserved}"
+  },
+  "themes": {
+    "doctor": "Doctor",
+    "marketplace": "Marketplace"
+  },
+  "home": {
+    "sections": {
+      "glance": "At a glance",
+      "features": "What you can do"
+    },
+    "doctor": {
+      "experience": "Doctor experience",
+      "carouselTitle": "Today's queue",
+      "heroTitle": "Manage visitors, patients, and appointments in one calm workspace.",
+      "heroSubtitle": "A modern clinic experience with dynamic cards, live metrics, animated sections, and reusable domain-aware components.",
+      "ctaLabel": "Open Dashboard",
+      "metrics": {
+        "visitors": {
+          "title": "Visitors",
+          "value": "24",
+          "caption": "Checked in today"
+        },
+        "patients": {
+          "title": "Patients",
+          "value": "128",
+          "caption": "Active records"
+        },
+        "reports": {
+          "title": "Reports",
+          "value": "9",
+          "caption": "Ready to review"
+        }
+      },
+      "features": {
+        "appointments": {
+          "title": "Appointments",
+          "body": "Coordinate visits and follow-ups effortlessly."
+        },
+        "patients": {
+          "title": "Patients",
+          "body": "Keep patient records and histories at your fingertips."
+        },
+        "reports": {
+          "title": "Reports",
+          "body": "Track clinic performance with clear, shareable insights."
+        }
+      }
+    },
+    "marketplace": {
+      "experience": "Marketplace experience",
+      "carouselTitle": "Trending now",
+      "heroTitle": "Launch products and grow revenue with a polished storefront experience.",
+      "heroSubtitle": "A flexible marketplace UI with promo cards, commerce metrics, and animated conversion blocks.",
+      "ctaLabel": "Explore Catalog",
+      "metrics": {
+        "revenue": {
+          "title": "Revenue",
+          "value": "$12.4k",
+          "caption": "This week"
+        },
+        "orders": {
+          "title": "Orders",
+          "value": "318",
+          "caption": "Live purchases"
+        },
+        "customers": {
+          "title": "Customers",
+          "value": "2.1k",
+          "caption": "Returning users"
+        }
+      },
+      "features": {
+        "products": {
+          "title": "Products",
+          "body": "Showcase inventory with rich cards and promotions."
+        },
+        "orders": {
+          "title": "Orders",
+          "body": "Track fulfillment and delivery status in real time."
+        },
+        "marketing": {
+          "title": "Marketing",
+          "body": "Run campaigns and measure customer engagement."
+        }
+      }
+    }
+  },
+  "roles": {
+    "admin": "Admin"
+  },
+  "presence": {
+    "online": "Online",
+    "offline": "Offline",
+    "goOnline": "Go online",
+    "goOffline": "Go offline",
+    "since": "since {time}",
+    "wentOnline": "You are online and can check patients in.",
+    "wentOffline": "You are offline.",
+    "offlineBanner": "You are offline. Go online to check patients in."
+  },
+  "status": {
+    "appointment": {
+      "scheduled": "Waiting",
+      "checkedIn": "Checked in",
+      "inProgress": "In progress",
+      "completed": "Completed",
+      "cancelled": "Cancelled",
+      "noShow": "No-show"
+    },
+    "order": {
+      "pending": "Pending",
+      "paid": "Paid",
+      "shipped": "Shipped",
+      "delivered": "Delivered",
+      "cancelled": "Cancelled"
+    }
+  },
+  "permissionGroups": {
+    "users": "Team",
+    "roles": "Roles",
+    "patients": "Patients",
+    "appointments": "Appointments",
+    "presence": "Presence",
+    "reports": "Reports",
+    "products": "Products",
+    "orders": "Orders",
+    "marketing": "Marketing",
+    "chat": "Live chat"
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again.",
+    "network": "Cannot reach the server. Check your connection.",
+    "forbidden": "You do not have permission to open this page.",
+    "forbiddenTitle": "Access denied",
+    "notFound": "The page you are looking for does not exist.",
+    "notFoundTitle": "Page not found",
+    "backHome": "Back to start"
+  },
+  "settings": {
+    "title": "Your settings",
+    "subtitle": "Profile, language, timezone and security.",
+    "profile": "Profile",
+    "organization": "Organization",
+    "preferences": "Preferences",
+    "timezoneHint": "Dates are shown in this timezone. Now: {now}",
+    "security": "Security",
+    "currentPassword": "Current password",
+    "changePassword": "Change password",
+    "passwordChanged": "Password changed."
+  },
+  "admin": {
+    "users": {
+      "title": "Team",
+      "subtitle": "Invite people, assign roles and control access.",
+      "new": "Add member",
+      "edit": "Edit member",
+      "search": "Search name or email",
+      "anyRole": "Any role",
+      "lastLogin": "Last sign-in",
+      "newPasswordOptional": "New password (leave empty to keep)",
+      "rolesHint": "A member can hold several roles, e.g. Administrator and Doctor.",
+      "confirmDelete": "Remove {name} from the team?"
+    },
+    "roles": {
+      "title": "Roles & permissions",
+      "subtitle": "Decide exactly what each role may do.",
+      "new": "New role",
+      "system": "System role",
+      "members": "{count} members",
+      "description": "Description",
+      "isAdmin": "Administrator role",
+      "isAdminHint": "Administrators hold every permission, including future ones.",
+      "permissions": "Permissions",
+      "adminHasAll": "This role grants every permission available to your organization.",
+      "pickOne": "Select a role to view or edit its permissions.",
+      "confirmDelete": "Delete the role {name}? {count} members will lose it."
+    }
+  },
+  "chat": {
+    "title": "Live chat",
+    "subtitle": "Talk with your team in real time.",
+    "rooms": "Rooms",
+    "newRoom": "New room",
+    "searchRooms": "Search rooms",
+    "noRooms": "No rooms match your search.",
+    "members": "Members",
+    "online": "Online",
+    "offline": "Offline",
+    "onlineCount": "{count} online",
+    "you": "You",
+    "admin": "Admin",
+    "formerMember": "Former member",
+    "locked": "Locked",
+    "lockedHint": "Only administrators can post in this room.",
+    "lockRoom": "Lock room (mute everyone)",
+    "unlockRoom": "Unlock room",
+    "roomLocked": "Room locked: only administrators can post.",
+    "roomUnlocked": "Room unlocked: everyone can post again.",
+    "editRoom": "Edit room",
+    "deleteRoom": "Delete room",
+    "confirmDeleteRoom": "Delete \"{name}\" and all of its messages? This cannot be undone.",
+    "roomName": "Name",
+    "roomDescription": "Description",
+    "roomIcon": "Icon",
+    "roomLockedField": "Locked: only administrators can post",
+    "roomLockedFieldHint": "Use it for announcements, or to calm a heated conversation.",
+    "roomSaved": "Room saved.",
+    "roomDeleted": "Room deleted.",
+    "defaultRoom": "Default room",
+    "placeholder": "Message #{room}",
+    "send": "Send",
+    "sendHint": "Enter to send, Shift + Enter for a new line",
+    "loadOlder": "Load older messages",
+    "beginning": "This is the beginning of #{room}.",
+    "empty": "No messages yet. Say hello!",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "newMessages": "New messages",
+    "jumpToLatest": "Jump to latest",
+    "typingOne": "{name} is typing…",
+    "typingTwo": "{first} and {second} are typing…",
+    "typingMany": "Several people are typing…",
+    "deleteMessage": "Delete message",
+    "confirmDeleteMessage": "Delete this message for everyone?",
+    "messageDeleted": "Message deleted.",
+    "mute": "Mute",
+    "unmute": "Unmute",
+    "muteInRoom": "Mute in this room",
+    "muteEverywhere": "Mute in every room",
+    "mutedYou": "You are muted in this room until it is lifted.",
+    "mutedYouUntil": "You are muted in this room until {time}.",
+    "mutedBadge": "Muted",
+    "mutedUntil": "until {time}",
+    "mutedForever": "until lifted",
+    "mutedBy": "by {name}",
+    "mutedMembers": "Muted members",
+    "noMutes": "Nobody is muted.",
+    "muteTitle": "Mute {name}",
+    "muteScope": "Where",
+    "scopeRoom": "In #{room}",
+    "scopeEverywhere": "In every room",
+    "muteDuration": "For how long",
+    "muteReason": "Reason (optional)",
+    "muteReasonPlaceholder": "e.g. Off-topic messages",
+    "muteHint": "Muted members can still read, but cannot post until the mute ends or is lifted.",
+    "mutedToast": "{name} has been muted.",
+    "unmutedToast": "{name} can chat again.",
+    "everywhere": "All rooms",
+    "durations": {
+      "15": "15 min",
+      "60": "1 hour",
+      "1440": "24 hours",
+      "10080": "7 days",
+      "forever": "Until lifted"
+    },
+    "status": {
+      "connected": "Live",
+      "connecting": "Connecting…",
+      "reconnecting": "Reconnecting…",
+      "unavailable": "Live updates off",
+      "idle": "Offline"
+    },
+    "unreadCount": "{count} unread messages",
+    "showMembers": "Show members",
+    "hideMembers": "Hide members",
+    "backToRooms": "Rooms",
+    "memberActions": "Moderation options for {name}",
+    "characters": "{count} / {max}",
+    "loadFailed": "The chat could not be loaded.",
+    "retry": "Try again",
+    "audience": {
+      "title": "Who can enter",
+      "everyone": "Everyone",
+      "admins": "Admins only",
+      "roles": "Specific roles",
+      "everyoneHint": "Every member of the team can read and write here.",
+      "adminsHint": "Only administrators can see this room.",
+      "rolesHint": "Only {roles} (and administrators) can see this room.",
+      "pickRoles": "Choose roles",
+      "defaultFixed": "The Global room is always open to the whole team."
+    }
+  }
+}

@@ -1,0 +1,263 @@
+services:
+  laravel-app:
+    build:
+      context: .
+      dockerfile: ./configuration/app_conf/Dockerfile
+    # Also used by the reverb service, so the image is built once (no parallel composer installs)
+    image: laravel-vue-app:local
+    # Local image: always build it (cached), never look for it on a registry
+    pull_policy: build
+    container_name: laravel-app
+    working_dir: /var/www/html
+    restart: unless-stopped
+    tty: true
+    # Shared with the reverb service, which boots the same Laravel app
+    environment: &laravel-env
+      - APP_URL=${APP_URL:-http://localhost:8080}
+      - BACKEND_URL=${BACKEND_URL:-http://localhost:8080}
+      - DB_CONNECTION=${POSTGRES_DB_CONNECTION}
+      - DB_HOST=${POSTGRES_DB_HOST}
+      - DB_PORT=${POSTGRES_DB_PORT}
+      - DB_DATABASE=${POSTGRES_DB_DATABASE}
+      - DB_USERNAME=${POSTGRES_DB_USERNAME}
+      - DB_PASSWORD=${POSTGRES_DB_PASSWORD}
+      - FRONTEND_URL=${FRONTEND_URL:-http://localhost:5173}
+      # Optional standalone theme frontends (see the `standalone` profile below)
+      - FRONTEND_URL_DOCTOR=${FRONTEND_URL_DOCTOR:-}
+      - FRONTEND_URL_MARKETPLACE=${FRONTEND_URL_MARKETPLACE:-}
+      # Themes this backend serves, empty = all (e.g. "doctor" for a clinic-only deployment)
+      - TENANCY_THEMES=${TENANCY_THEMES:-}
+      - AUTH_VERIFY_EMAIL=${AUTH_VERIFY_EMAIL:-true}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      # Realtime (live chat): Laravel publishes events to the reverb container over the
+      # internal network; browsers reach the same server through nginx (/app/*)
+      - BROADCAST_CONNECTION=reverb
+      - REVERB_APP_ID=${REVERB_APP_ID}
+      - REVERB_APP_KEY=${REVERB_APP_KEY}
+      - REVERB_APP_SECRET=${REVERB_APP_SECRET}
+      - REVERB_HOST=reverb
+      - REVERB_PORT=8080
+      - REVERB_SCHEME=http
+      - REVERB_SERVER_HOST=0.0.0.0
+      - REVERB_SERVER_PORT=8080
+      - REVERB_ALLOWED_ORIGINS=${REVERB_ALLOWED_ORIGINS:-*}
+    volumes: &laravel-volumes
+      - ./laravel-app:/var/www/html
+      # Laravel logs (storage/logs/laravel.log) live in a named volume
+      - type: volume
+        source: laravel-app-data
+        target: /var/www/html/storage/logs
+    networks:
+      - laravel-vue3-app-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis-alpine:
+        condition: service_healthy
+    # entrypoint.sh starts PHP-FPM only after `php artisan migrate` succeeded,
+    # so "healthy" means the schema is up to date and requests can be served
+    healthcheck:
+      test: ["CMD", "php", "-r", "exit(@fsockopen('127.0.0.1', 9000) ? 0 : 1);"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 300s
+      start_interval: 2s
+
+  # Laravel Reverb websocket server (live chat). Same image, code and env as laravel-app;
+  # started after it is healthy, so vendor/ is installed and migrations have run.
+  # It only relays messages: channel auth and event publishing run in laravel-app. Restart it
+  # after changing config/reverb.php or REVERB_* values: `docker compose restart reverb`
+  reverb:
+    image: laravel-vue-app:local
+    pull_policy: never
+    container_name: reverb
+    working_dir: /var/www/html
+    restart: unless-stopped
+    user: www-data
+    entrypoint: ["php", "artisan"]
+    command: ["reverb:start", "--no-interaction"]
+    environment: *laravel-env
+    volumes: *laravel-volumes
+    networks:
+      - laravel-vue3-app-network
+    depends_on:
+      laravel-app:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "php", "-r", "exit(@fsockopen('127.0.0.1', 8080) ? 0 : 1);"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+      start_interval: 2s
+
+  vue3-frontend:
+    build:
+      context: .
+      dockerfile: ./configuration/fronted_conf/Dockerfile
+    container_name: vue3-frontend
+    restart: unless-stopped
+    ports:
+      - "${VITE_PORT}:${VITE_PORT}"
+    environment:
+      - VITE_API_URL=${VITE_API_URL:-http://localhost:8080}
+      - VITE_PORT=${VITE_PORT}
+      # Multi-theme app; set e.g. "doctor,marketplace" to limit the picker
+      - VITE_APP_THEMES=${VITE_APP_THEMES:-}
+      # Optional: serve separated apps by hostname from this one server
+      - VITE_THEME_HOSTS=${VITE_THEME_HOSTS:-}
+      # Websocket (Reverb, proxied by nginx); the key is public by design
+      - VITE_REVERB_APP_KEY=${REVERB_APP_KEY}
+      - VITE_REVERB_HOST=${REVERB_PUBLIC_HOST:-localhost}
+      - VITE_REVERB_PORT=${REVERB_PUBLIC_PORT:-8080}
+      - VITE_REVERB_SCHEME=${REVERB_PUBLIC_SCHEME:-http}
+    command: sh -c "npm install && npm run dev"
+    volumes:
+      - ./vue3-frontend:/app
+      - vue3-frontend-node-modules:/app/node_modules
+      - type: volume
+        source: vue3-frontend-data
+        target: /app/logs
+    networks:
+      - laravel-vue3-app-network
+
+  # Standalone theme apps sharing the same API: `docker compose --profile standalone up`
+  vue3-doctor:
+    profiles: ["standalone"]
+    build:
+      context: .
+      dockerfile: ./configuration/fronted_conf/Dockerfile
+    container_name: vue3-doctor
+    restart: unless-stopped
+    ports:
+      - "${VITE_DOCTOR_PORT:-5174}:5173"
+    environment:
+      - VITE_API_URL=${VITE_API_URL:-http://localhost:8080}
+      - VITE_PORT=5173
+      - VITE_APP_THEME=doctor
+      # Websocket (Reverb, proxied by nginx); the key is public by design
+      - VITE_REVERB_APP_KEY=${REVERB_APP_KEY}
+      - VITE_REVERB_HOST=${REVERB_PUBLIC_HOST:-localhost}
+      - VITE_REVERB_PORT=${REVERB_PUBLIC_PORT:-8080}
+      - VITE_REVERB_SCHEME=${REVERB_PUBLIC_SCHEME:-http}
+    command: sh -c "npm install && npm run dev"
+    volumes:
+      - ./vue3-frontend:/app
+      - vue3-doctor-node-modules:/app/node_modules
+    networks:
+      - laravel-vue3-app-network
+
+  vue3-market:
+    profiles: ["standalone"]
+    build:
+      context: .
+      dockerfile: ./configuration/fronted_conf/Dockerfile
+    container_name: vue3-market
+    restart: unless-stopped
+    ports:
+      - "${VITE_MARKET_PORT:-5175}:5173"
+    environment:
+      - VITE_API_URL=${VITE_API_URL:-http://localhost:8080}
+      - VITE_PORT=5173
+      - VITE_APP_THEME=marketplace
+      # Websocket (Reverb, proxied by nginx); the key is public by design
+      - VITE_REVERB_APP_KEY=${REVERB_APP_KEY}
+      - VITE_REVERB_HOST=${REVERB_PUBLIC_HOST:-localhost}
+      - VITE_REVERB_PORT=${REVERB_PUBLIC_PORT:-8080}
+      - VITE_REVERB_SCHEME=${REVERB_PUBLIC_SCHEME:-http}
+    command: sh -c "npm install && npm run dev"
+    volumes:
+      - ./vue3-frontend:/app
+      - vue3-market-node-modules:/app/node_modules
+    networks:
+      - laravel-vue3-app-network
+
+  postgres:
+    image: postgres:18.6-alpine3.24
+    container_name: postgres
+    restart: always
+    tty: true
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB_DATABASE}
+      - POSTGRES_USER=${POSTGRES_DB_USERNAME}
+      - POSTGRES_PASSWORD=${POSTGRES_DB_PASSWORD}
+    ports:
+      - "${POSTGRES_DB_HOST_PORT}:${POSTGRES_DB_PORT}"
+    volumes:
+      - ./configuration/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - type: volume
+        source: postgres-data
+        target: /var/lib/postgresql
+    networks:
+      - laravel-vue3-app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_DB_USERNAME} -d ${POSTGRES_DB_DATABASE}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+         
+  redis-alpine:
+    image: redis:alpine
+    container_name: redis-alpine
+    restart: always
+    command: redis-server 
+    ports:
+      - "${REDIS_HOST_PORT}:${REDIS_PORT}"
+    volumes:
+      - redis-data:/data
+    networks:
+      - laravel-vue3-app-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+  
+  nginx:
+    image: nginx:1.31.4-alpine
+    container_name: nginx-1-31-4-alpine
+    restart: unless-stopped
+    ports:
+      - "${HTTP_HOST_PORT}:${HTTP_PORT}"
+    volumes:
+      - ./configuration/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./laravel-app:/var/www/html
+    depends_on:
+      laravel-app:
+        condition: service_healthy
+      # Proxies websockets to it (resolved per request, so nginx survives reverb restarts)
+      reverb:
+        condition: service_started
+    networks:
+      - laravel-vue3-app-network
+
+volumes:
+  laravel-app-data:
+    name: laravel-app-data-logs
+  # One per frontend container so parallel `npm install` runs never share a tree
+  vue3-frontend-node-modules:
+    name: vue3-frontend-node-modules
+  vue3-doctor-node-modules:
+    name: vue3-doctor-node-modules
+  vue3-market-node-modules:
+    name: vue3-market-node-modules
+  vue3-frontend-data:
+    name: vue3-frontend-data-logs
+  postgres-data:
+    name: postgres-data-logs
+  redis-data:
+    name: redis-alpine-logs
+
+  nginx-conf:
+  nginx-host:
+  nginx-html:
+  nginx-certs:
+  acme:
+  
+networks:
+  laravel-vue3-app-network:
+    driver: bridge
+    #in case network existing already and dont have to create it automatically
+    #external: true

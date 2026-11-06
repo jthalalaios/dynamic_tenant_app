@@ -1,0 +1,29 @@
+# Docker only reads ignore files from the build-context root or from
+# "<Dockerfile>.dockerignore", so this file must live next to the Dockerfile
+# under this name. The build context is the repository root, so every path
+# below is relative to it.
+
+# Not needed for the PHP image
+vue3-frontend
+configuration/postgres
+configuration/nginx
+configuration/fronted_conf
+.env
+
+# Node artifacts
+laravel-app/node_modules
+
+# Rebuilt by the composer_builder stage; host copies would be merged over it
+laravel-app/vendor
+
+# Laravel runtime & sensitive files
+laravel-app/.env
+laravel-app/storage/*.key
+laravel-app/storage/logs/*
+laravel-app/storage/framework/cache/*
+laravel-app/storage/framework/sessions/*
+laravel-app/storage/framework/views/*
+laravel-app/bootstrap/cache/*.php
+
+# OS files
+**/.DS_Store

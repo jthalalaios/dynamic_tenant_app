@@ -1,0 +1,29 @@
+:root {
+  color: var(--text);
+  background-color: var(--bg);
+
+  /* Map PrimeVue (Aura) semantic tokens onto the active tenant theme.
+     The primary palette itself is set at runtime by applyTheme(). */
+  --p-primary-contrast-color: var(--primary-contrast);
+  --p-text-color: var(--text);
+  --p-text-muted-color: var(--muted);
+  --p-content-background: var(--surface);
+  --p-content-border-color: var(--border);
+  --p-form-field-background: var(--surface);
+  --p-form-field-border-color: var(--border);
+  --p-form-field-color: var(--text);
+  --p-form-field-placeholder-color: var(--muted);
+  --p-overlay-popover-background: var(--surface);
+  --p-overlay-popover-color: var(--text);
+}
+
+/* Inputs */
+.p-inputtext {
+  border-radius: 12px;
+}
+
+/* Buttons: soft rounded corners across all variants */
+.p-button {
+  border-radius: 12px;
+  font-weight: 600;
+}

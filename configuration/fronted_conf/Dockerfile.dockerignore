@@ -1,0 +1,12 @@
+# Build context is the repository root; only vue3-frontend sources are needed.
+laravel-app
+configuration
+.env
+
+# Installed inside the image by "npm install"
+vue3-frontend/node_modules
+vue3-frontend/dist
+vue3-frontend/logs
+
+# OS files
+**/.DS_Store

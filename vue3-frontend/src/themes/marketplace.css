@@ -1,0 +1,6 @@
+/* Marketplace theme specific styles: warm, energetic commerce palette */
+.theme-marketplace {
+  --card-shadow-hover: 0 2px 4px rgba(31, 41, 55, 0.05), 0 20px 44px rgba(239, 68, 68, 0.14);
+  --hero-glow: radial-gradient(circle at 85% 15%, rgba(245, 158, 11, 0.2), transparent 45%),
+    radial-gradient(circle at 10% 90%, rgba(239, 68, 68, 0.12), transparent 50%);
+}
